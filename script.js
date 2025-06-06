@@ -59,10 +59,10 @@ const questionText = document.getElementById("question-text");
 const answersContainer = document.getElementById("answers-container");
 const feedback = document.getElementById("feedback");
 const nextBtn = document.getElementById("next-btn");
-
 const resultContainer = document.getElementById("result-container");
 const scoreText = document.getElementById("score-text");
 const restartBtn = document.getElementById("restart-btn");
+const progressFill = document.getElementById("progress-fill");
 
 document.getElementById("btn-quiz").addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", showNextQuestion);
@@ -74,11 +74,20 @@ function startQuiz() {
     quizContainer.style.display = "block";
     currentQuestionIndex = 0;
     score = 0;
+    updateProgressBar();
     showQuestion();
 }
 
 function showQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
+
+    // הפעלת אנימציה
+    const wrapper = document.getElementById("question-wrapper");
+    wrapper.style.opacity = 0;
+    setTimeout(() => {
+        wrapper.style.animation = "fadeIn 0.6s ease forwards";
+    }, 50);
+
     questionText.textContent = currentQuestion.question;
     answersContainer.innerHTML = "";
     feedback.textContent = "";
@@ -91,6 +100,8 @@ function showQuestion() {
         button.addEventListener("click", () => selectAnswer(index));
         answersContainer.appendChild(button);
     });
+
+    updateProgressBar();
 }
 
 function selectAnswer(selectedIndex) {
@@ -126,6 +137,11 @@ function showNextQuestion() {
     }
 }
 
+function updateProgressBar() {
+    const progress = ((currentQuestionIndex) / questions.length) * 100;
+    progressFill.style.width = progress + "%";
+}
+
 function showResult() {
     quizContainer.style.display = "none";
     resultContainer.style.display = "block";
@@ -151,4 +167,5 @@ function showResult() {
         ציון: <strong>${Math.round(percentage)}%</strong><br>
         <em>${evaluation}</em>
     `;
+    progressFill.style.width = "100%";
 }
