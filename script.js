@@ -1,119 +1,85 @@
 const questions = [
   {
-    question: "מהי עיר הבירה של ישראל?",
-    answers: ["תל אביב", "ירושלים", "חיפה", "באר שבע"],
-    correct: 1
+    question: "מהי בירת ישראל?",
+    answers: ["ירושלים", "תל אביב", "חיפה", "באר שבע"],
+    correctIndex: 0
   },
   {
-    question: "כמה רגליים יש לעכביש?",
-    answers: ["6", "8", "10", "12"],
-    correct: 1
+    question: "מה צבע הדגל של ישראל?",
+    answers: ["כחול ולבן", "אדום ולבן", "ירוק ולבן", "צהוב ולבן"],
+    correctIndex: 0
   },
-  {
-    question: "איזה כוכב לכת קרוב ביותר לשמש?",
-    answers: ["מאדים", "נוגה", "כדור הארץ", "כוכב חמה"],
-    correct: 3
-  },
-  {
-    question: "מהו המטבע של ארצות הברית?",
-    answers: ["אירו", "שקל", "דולר", "לירה"],
-    correct: 2
-  },
-  {
-    question: "איזו חיה נחשבת לגדולה ביותר על פני כדור הארץ?",
-    answers: ["פיל", "כריש לבן", "לווייתן כחול", "דינוזואר"],
-    correct: 2
-  },
-  {
-    question: "מהי השפה הרשמית ביפן?",
-    answers: ["יפנית", "סינית", "קוריאנית", "אנגלית"],
-    correct: 0
-  },
-  {
-    question: "באיזו יבשת נמצאת מצרים?",
-    answers: ["אסיה", "אירופה", "אפריקה", "אמריקה"],
-    correct: 2
-  },
-  {
-    question: "כמה ימים יש בשנה רגילה?",
-    answers: ["365", "366", "364", "360"],
-    correct: 0
-  },
-  {
-    question: "מי המציא את הנורה החשמלית?",
-    answers: ["אלברט איינשטיין", "ניקולה טסלה", "תומס אדיסון", "אייזק ניוטון"],
-    correct: 2
-  },
-  {
-    question: "מהי בירת צרפת?",
-    answers: ["פריז", "ליון", "מרסיי", "בריסל"],
-    correct: 0
-  }
+  // הוסיפי כאן את כל 10 השאלות שלך לפי הפורמט הזה
 ];
 
-let currentQuestion = 0;
-let score = 0;
-
 const mainMenu = document.getElementById("main-menu");
+const btnQuiz = document.getElementById("btn-quiz");
 const quizContainer = document.getElementById("quiz-container");
-const resultContainer = document.getElementById("result-container");
 const questionText = document.getElementById("question-text");
 const answersContainer = document.getElementById("answers-container");
 const feedback = document.getElementById("feedback");
 const nextBtn = document.getElementById("next-btn");
+const resultContainer = document.getElementById("result-container");
+const scoreText = document.getElementById("score-text");
 const restartBtn = document.getElementById("restart-btn");
 
-document.getElementById("btn-quiz").addEventListener("click", () => {
+let currentQuestionIndex = 0;
+let score = 0;
+
+btnQuiz.addEventListener("click", () => {
   mainMenu.style.display = "none";
-  quizContainer.style.display = "block";
   resultContainer.style.display = "none";
-  currentQuestion = 0;
+  quizContainer.style.display = "block";
+  currentQuestionIndex = 0;
   score = 0;
+  feedback.textContent = "";
+  nextBtn.style.display = "none";
   showQuestion();
 });
 
 function showQuestion() {
-  const q = questions[currentQuestion];
-  questionText.textContent = q.question;
-  answersContainer.innerHTML = "";
   feedback.textContent = "";
   nextBtn.style.display = "none";
+  answersContainer.innerHTML = "";
 
-  q.answers.forEach((answer, index) => {
+  const q = questions[currentQuestionIndex];
+  questionText.textContent = q.question;
+
+  q.answers.forEach((answer, i) => {
     const btn = document.createElement("button");
-    btn.className = "answer-button";
     btn.textContent = answer;
-    btn.addEventListener("click", () => handleAnswer(index));
+    btn.classList.add("answer-button");
+    btn.addEventListener("click", () => handleAnswer(i));
     answersContainer.appendChild(btn);
   });
 }
 
 function handleAnswer(selectedIndex) {
-  const q = questions[currentQuestion];
-  const buttons = document.querySelectorAll(".answer-button");
+  const q = questions[currentQuestionIndex];
+  const buttons = answersContainer.querySelectorAll("button");
 
-  buttons.forEach((btn, i) => {
+  buttons.forEach((btn, idx) => {
     btn.disabled = true;
-    if (i === q.correct) {
+    if(idx === q.correctIndex) {
       btn.classList.add("correct");
-    } else if (i === selectedIndex) {
+    } else if(idx === selectedIndex) {
       btn.classList.add("incorrect");
     }
   });
 
-  if (selectedIndex === q.correct) {
-    feedback.textContent = "תשובה נכונה!";
-    score += 10;
+  if(selectedIndex === q.correctIndex) {
+    feedback.textContent = "תשובה נכונה! 👏";
+    score++;
   } else {
-    feedback.textContent = "תשובה שגויה!";
+    feedback.textContent = `תשובה שגויה. התשובה הנכונה היא: ${q.answers[q.correctIndex]}`;
   }
 
   nextBtn.style.display = "inline-block";
 }
 
 nextBtn.addEventListener("click", () => {
-  currentQuestion++;
-  if (currentQuestion < questions.length) {
+  currentQuestionIndex++;
+  if(currentQuestionIndex < questions.length) {
     showQuestion();
   } else {
     showResult();
@@ -123,10 +89,10 @@ nextBtn.addEventListener("click", () => {
 function showResult() {
   quizContainer.style.display = "none";
   resultContainer.style.display = "block";
-  document.getElementById("score-text").textContent = `ציון סופי: ${score} מתוך 100`;
+  scoreText.textContent = `קיבלת ${score} מתוך ${questions.length}`;
 }
 
 restartBtn.addEventListener("click", () => {
-  mainMenu.style.display = "block";
   resultContainer.style.display = "none";
+  mainMenu.style.display = "flex";
 });
