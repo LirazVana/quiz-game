@@ -31,6 +31,15 @@ const restartBtn = document.getElementById("restart-btn");
 
 let currentQuestionIndex = 0;
 let score = 0;
+let shuffledAnswers = [];
+
+// פונקציה לערבוב מערך
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
 
 btnQuiz.addEventListener("click", () => {
   mainMenu.style.display = "none";
@@ -52,9 +61,19 @@ function showQuestion() {
   const q = questions[currentQuestionIndex];
   questionText.textContent = q.question;
 
-  q.answers.forEach((ans, i) => {
+  // יוצרים מערך של אובייקטים עם טקסט ומידע אם התשובה נכונה
+  shuffledAnswers = q.answers.map((text, idx) => ({
+    text,
+    isCorrect: idx === q.correctIndex
+  }));
+
+  // מערבבים את התשובות
+  shuffleArray(shuffledAnswers);
+
+  // יוצרים כפתורים לפי הסדר המעורבב
+  shuffledAnswers.forEach((ansObj, i) => {
     const btn = document.createElement("button");
-    btn.textContent = ans;
+    btn.textContent = ansObj.text;
     btn.classList.add("answer-button");
     btn.addEventListener("click", () => handleAnswer(i));
     answersContainer.appendChild(btn);
@@ -62,20 +81,22 @@ function showQuestion() {
 }
 
 function handleAnswer(selectedIndex) {
-  const q = questions[currentQuestionIndex];
   const btns = answersContainer.querySelectorAll("button");
 
   btns.forEach((btn, idx) => {
     btn.disabled = true;
-    if(idx === q.correctIndex) btn.classList.add("correct");
+    if(shuffledAnswers[idx].isCorrect) btn.classList.add("correct");
     else if(idx === selectedIndex) btn.classList.add("incorrect");
   });
 
-  feedback.textContent = selectedIndex === q.correctIndex
-    ? "תשובה נכונה! 👏"
-    : `תשובה שגויה. התשובה הנכונה היא: ${q.answers[q.correctIndex]}`;
+  if (shuffledAnswers[selectedIndex].isCorrect) {
+    feedback.textContent = "תשובה נכונה! 👏";
+    score++;
+  } else {
+    const correctAnswer = shuffledAnswers.find(a => a.isCorrect).text;
+    feedback.textContent = `תשובה שגויה. התשובה הנכונה היא: ${correctAnswer}`;
+  }
 
-  if(selectedIndex === q.correctIndex) score++;
   nextBtn.style.display = "inline-block";
 }
 
