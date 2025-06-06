@@ -11,18 +11,28 @@ body {
 }
 
 button {
-    margin: 5px;
+    margin: 5px 10px 5px 0;
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
+    border: 1px solid #888;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #d0d0d0;
 }
 
 .correct {
-    background-color: #a3dca6; /* ירוק בהיר */
+    background-color: #a3dca6 !important; /* ירוק בהיר */
+    color: black;
 }
 
 .wrong {
-    background-color: #e07a7a; /* אדום בהיר */
+    background-color: #e07a7a !important; /* אדום בהיר */
+    color: black;
 }
 
 #feedback {
