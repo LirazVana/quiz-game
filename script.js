@@ -167,6 +167,7 @@ function showQuestion() {
 
 function handleAnswer(selectedIndex) {
   const btns = answersContainer.querySelectorAll("button");
+  const currentQuestion = questions[currentQuestionIndex];
 
   btns.forEach((btn, idx) => {
     btn.disabled = true;
@@ -174,24 +175,13 @@ function handleAnswer(selectedIndex) {
     else if(idx === selectedIndex) btn.classList.add("incorrect");
   });
 
-  // מנקים קודם את הפידבק
-  feedback.textContent = "";
-
   if (shuffledAnswers[selectedIndex].isCorrect) {
-    feedback.textContent = "תשובה נכונה! 👏";
+    feedback.innerHTML = `תשובה נכונה! 👏<br><small>${currentQuestion.explanation}</small>`;
     score++;
   } else {
     const correctAnswer = shuffledAnswers.find(a => a.isCorrect).text;
-    feedback.textContent = `תשובה שגויה. התשובה הנכונה היא: ${correctAnswer}`;
+    feedback.innerHTML = `תשובה שגויה. התשובה הנכונה היא: ${correctAnswer}<br><small>${currentQuestion.explanation}</small>`;
   }
-
-  // יוצרים אלמנט חדש להצגת ההסבר
-  const explanationEl = document.createElement("div");
-  explanationEl.classList.add("explanation");
-  explanationEl.style.marginTop = "10px";
-  explanationEl.textContent = questions[currentQuestionIndex].explanation;
-
-  feedback.appendChild(explanationEl);
 
   nextBtn.style.display = "inline-block";
 }
