@@ -103,8 +103,6 @@ const questions = [
   }
 ];
 
-
-
 const mainMenu = document.getElementById("main-menu");
 const btnQuiz = document.getElementById("btn-quiz");
 const quizContainer = document.getElementById("quiz-container");
@@ -176,6 +174,9 @@ function handleAnswer(selectedIndex) {
     else if(idx === selectedIndex) btn.classList.add("incorrect");
   });
 
+  // מנקים קודם את הפידבק
+  feedback.textContent = "";
+
   if (shuffledAnswers[selectedIndex].isCorrect) {
     feedback.textContent = "תשובה נכונה! 👏";
     score++;
@@ -183,6 +184,14 @@ function handleAnswer(selectedIndex) {
     const correctAnswer = shuffledAnswers.find(a => a.isCorrect).text;
     feedback.textContent = `תשובה שגויה. התשובה הנכונה היא: ${correctAnswer}`;
   }
+
+  // יוצרים אלמנט חדש להצגת ההסבר
+  const explanationEl = document.createElement("div");
+  explanationEl.classList.add("explanation");
+  explanationEl.style.marginTop = "10px";
+  explanationEl.textContent = questions[currentQuestionIndex].explanation;
+
+  feedback.appendChild(explanationEl);
 
   nextBtn.style.display = "inline-block";
 }
