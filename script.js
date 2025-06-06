@@ -1,142 +1,129 @@
-const mainMenu = document.getElementById("main-menu");
-const btnQuiz = document.getElementById("btn-quiz");
-const quizContainer = document.getElementById("quiz-container");
-const questionText = document.getElementById("question-text");
-const answersContainer = document.getElementById("answers-container");
-const feedback = document.getElementById("feedback");
-const nextBtn = document.getElementById("next-btn");
-const resultContainer = document.getElementById("result-container");
-const scoreText = document.getElementById("score-text");
-const restartBtn = document.getElementById("restart-btn");
-const progressFill = document.getElementById("progress-fill");
-
 const questions = [
     {
-        question: "מהי בירת ישראל?",
-        answers: ["תל אביב", "ירושלים", "חיפה", "באר שבע"],
-        correctIndex: 1
-    },
-    {
-        question: "מה צבע הדגל של ישראל?",
-        answers: ["כחול ולבן", "אדום ולבן", "ירוק ולבן", "שחור ולבן"],
-        correctIndex: 0
+        question: "מה בירת ישראל?",
+        answers: ["תל אביב", "חיפה", "ירושלים", "באר שבע"],
+        correct: 2
     },
     {
         question: "כמה ימים יש בשבוע?",
         answers: ["5", "6", "7", "8"],
-        correctIndex: 2
+        correct: 2
     },
     {
-        question: "מי המציא את החשמל?",
-        answers: ["תומס אדיסון", "אלברט איינשטיין", "ניקולה טסלה", "מייקל פאראדיי"],
-        correctIndex: 0
+        question: "מה הצבע של השמש?",
+        answers: ["צהוב", "כחול", "אדום", "ירוק"],
+        correct: 0
     },
     {
-        question: "מהי השפה הרשמית בישראל?",
-        answers: ["עברית", "ערבית", "אנגלית", "רוסית"],
-        correctIndex: 0
+        question: "כמה רגליים יש לחתול?",
+        answers: ["2", "3", "4", "5"],
+        correct: 2
     },
     {
-        question: "באיזה יבשת נמצאת ישראל?",
-        answers: ["אירופה", "אסיה", "אפריקה", "אמריקה"],
-        correctIndex: 1
+        question: "מהי שפת התכנות הפופולרית ביותר?",
+        answers: ["Python", "Java", "HTML", "Scratch"],
+        correct: 0
     },
     {
-        question: "כמה כוכבים יש בדגל ארה\"ב?",
-        answers: ["50", "51", "48", "52"],
-        correctIndex: 0
+        question: "מהו ים המלח?",
+        answers: ["אגם", "נהר", "ים", "הר"],
+        correct: 0
     },
     {
-        question: "מהי החיה הגדולה ביותר בעולם?",
-        answers: ["פיל", "לווייתן כחול", "קרנף", "דינוזאור"],
-        correctIndex: 1
+        question: "באיזו יבשת נמצאת ישראל?",
+        answers: ["אירופה", "אפריקה", "אסיה", "אמריקה"],
+        correct: 2
     },
     {
-        question: "כמה שיניים יש לאדם בוגר?",
-        answers: ["28", "30", "32", "34"],
-        correctIndex: 2
+        question: "מהו המספר הבא אחרי 9?",
+        answers: ["8", "10", "11", "9"],
+        correct: 1
     },
     {
-        question: "מהו הים המלוח ביותר?",
-        answers: ["ים המלח", "הים התיכון", "הים האדום", "הים השחור"],
-        correctIndex: 0
+        question: "איזה חיה נובחת?",
+        answers: ["חתול", "כלב", "דג", "סוס"],
+        correct: 1
+    },
+    {
+        question: "מהי בירת צרפת?",
+        answers: ["רומא", "לונדון", "פריז", "ברלין"],
+        correct: 2
     }
 ];
 
 let currentQuestionIndex = 0;
 let score = 0;
-let answered = false;
 
-btnQuiz.addEventListener("click", () => {
-    mainMenu.style.display = "none";
-    quizContainer.style.display = "block";
+const quizContainer = document.getElementById("quiz-container");
+const questionText = document.getElementById("question-text");
+const answersContainer = document.getElementById("answers-container");
+const feedback = document.getElementById("feedback");
+const nextBtn = document.getElementById("next-btn");
+
+const resultContainer = document.getElementById("result-container");
+const scoreText = document.getElementById("score-text");
+const restartBtn = document.getElementById("restart-btn");
+
+document.getElementById("btn-quiz").addEventListener("click", startQuiz);
+nextBtn.addEventListener("click", showNextQuestion);
+restartBtn.addEventListener("click", startQuiz);
+
+function startQuiz() {
+    document.getElementById("main-menu").style.display = "none";
     resultContainer.style.display = "none";
+    quizContainer.style.display = "block";
     currentQuestionIndex = 0;
     score = 0;
-    answered = false;
-    feedback.textContent = "";
-    nextBtn.style.display = "none";
     showQuestion();
-});
+}
 
-nextBtn.addEventListener("click", () => {
-    currentQuestionIndex++;
-    answered = false;
+function showQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionText.textContent = currentQuestion.question;
+    answersContainer.innerHTML = "";
     feedback.textContent = "";
     nextBtn.style.display = "none";
 
+    currentQuestion.answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.textContent = answer;
+        button.classList.add("answer-btn");
+        button.addEventListener("click", () => selectAnswer(index));
+        answersContainer.appendChild(button);
+    });
+}
+
+function selectAnswer(selectedIndex) {
+    const currentQuestion = questions[currentQuestionIndex];
+    const buttons = document.querySelectorAll(".answer-btn");
+
+    buttons.forEach((btn, index) => {
+        btn.disabled = true;
+        if (index === currentQuestion.correct) {
+            btn.classList.add("correct");
+        }
+        if (index === selectedIndex && index !== currentQuestion.correct) {
+            btn.classList.add("incorrect");
+        }
+    });
+
+    if (selectedIndex === currentQuestion.correct) {
+        feedback.textContent = "תשובה נכונה!";
+        score += 10;
+    } else {
+        feedback.textContent = "תשובה שגויה!";
+    }
+
+    nextBtn.style.display = "inline-block";
+}
+
+function showNextQuestion() {
+    currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
         showQuestion();
     } else {
         showResult();
     }
-});
-
-restartBtn.addEventListener("click", () => {
-    resultContainer.style.display = "none";
-    mainMenu.style.display = "block";
-});
-
-function showQuestion() {
-    updateProgressBar();
-
-    const currentQuestion = questions[currentQuestionIndex];
-    questionText.textContent = currentQuestion.question;
-
-    // מנקה תשובות קודמות
-    answersContainer.innerHTML = "";
-
-    currentQuestion.answers.forEach((answer, index) => {
-        const btn = document.createElement("button");
-        btn.classList.add("answer-btn");
-        btn.textContent = answer;
-        btn.disabled = false;
-
-        btn.addEventListener("click", () => {
-            if (answered) return; // למנוע לחיצות נוספות
-            answered = true;
-
-            if (index === currentQuestion.correctIndex) {
-                btn.classList.add("correct");
-                feedback.textContent = "תשובה נכונה";
-                score += 10;
-            } else {
-                btn.classList.add("incorrect");
-                // סימון התשובה הנכונה
-                const buttons = answersContainer.querySelectorAll("button");
-                buttons[currentQuestion.correctIndex].classList.add("correct");
-                feedback.textContent = "תשובה שגויה";
-            }
-
-            // השבתת כל הכפתורים לאחר בחירה
-            const buttons = answersContainer.querySelectorAll("button");
-            buttons.forEach(b => b.disabled = true);
-
-            nextBtn.style.display = "inline-block";
-        });
-
-        answersContainer.appendChild(btn);
-    });
 }
 
 function showResult() {
@@ -144,10 +131,24 @@ function showResult() {
     resultContainer.style.display = "block";
 
     const maxScore = questions.length * 10;
-    scoreText.textContent = `קיבלת ${score} מתוך ${maxScore} נקודות.`;
-}
+    const percentage = (score / maxScore) * 100;
+    let evaluation = "";
 
-function updateProgressBar() {
-    const progressPercent = ((currentQuestionIndex) / questions.length) * 100;
-    progressFill.style.width = progressPercent + "%";
+    if (percentage === 100) {
+        evaluation = "מושלם! כל הכבוד 👑";
+    } else if (percentage >= 90) {
+        evaluation = "מצוין! עבודה נהדרת 💪";
+    } else if (percentage >= 75) {
+        evaluation = "טוב מאוד! המשיכי כך 😊";
+    } else if (percentage >= 60) {
+        evaluation = "טוב, יש מקום לשיפור 🙂";
+    } else {
+        evaluation = "כדאי לחזור על החומר... 😕";
+    }
+
+    scoreText.innerHTML = `
+        קיבלת <strong>${score}</strong> מתוך <strong>${maxScore}</strong> נקודות.<br>
+        ציון: <strong>${Math.round(percentage)}%</strong><br>
+        <em>${evaluation}</em>
+    `;
 }
