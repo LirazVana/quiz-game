@@ -10,7 +10,6 @@ const questions = [
         answers: ["אדום ולבן", "כחול ולבן", "ירוק וצהוב", "שחור ולבן"],
         correct: 1
     },
-    // הוסף כאן עוד 8 שאלות לפי הדוגמה
     {
         question: "מהי שפת התכנות של האתר הזה?",
         answers: ["Python", "Java", "C++", "JavaScript"],
@@ -68,6 +67,7 @@ const scoreText = document.getElementById('score-text');
 const restartBtn = document.getElementById('restart-btn');
 
 document.getElementById('btn-quiz').addEventListener('click', startQuiz);
+
 nextBtn.addEventListener('click', () => {
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
@@ -76,6 +76,7 @@ nextBtn.addEventListener('click', () => {
         showResults();
     }
 });
+
 restartBtn.addEventListener('click', () => {
     currentQuestionIndex = 0;
     score = 0;
@@ -85,6 +86,7 @@ restartBtn.addEventListener('click', () => {
 
 function startQuiz() {
     mainMenu.style.display = 'none';
+    resultContainer.style.display = 'none';
     quizContainer.style.display = 'block';
     currentQuestionIndex = 0;
     score = 0;
@@ -94,6 +96,7 @@ function startQuiz() {
 function showQuestion() {
     feedback.textContent = '';
     nextBtn.style.display = 'none';
+
     const currentQ = questions[currentQuestionIndex];
     questionText.textContent = currentQ.question;
     answersContainer.innerHTML = '';
@@ -109,8 +112,8 @@ function showQuestion() {
 function selectAnswer(selectedIndex) {
     const currentQ = questions[currentQuestionIndex];
     const buttons = answersContainer.querySelectorAll('button');
-    
-    // ננעל את כל הכפתורים אחרי לחיצה
+
+    // מנע לחיצות נוספות
     buttons.forEach(btn => btn.disabled = true);
 
     if (selectedIndex === currentQ.correct) {
