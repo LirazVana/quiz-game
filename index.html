@@ -8,27 +8,27 @@
 <body>
 
     <!-- תפריט ראשי -->
-    <div id="main-menu">
+    <nav id="main-menu">
         <button id="btn-home">בית</button>
         <button id="btn-quiz">שאלון</button>
         <button id="btn-about">אודות</button>
         <button id="btn-contact">צור קשר</button>
-    </div>
+    </nav>
 
-    <!-- ממשק השאלון - בהתחלה מוסתר -->
-    <div id="quiz-container" style="display:none;">
+    <!-- ממשק השאלון -->
+    <section id="quiz-container" style="display:none;">
         <div id="question-text"></div>
         <div id="answers-container"></div>
         <div id="feedback"></div>
         <button id="next-btn" style="display:none;">שאלה הבאה</button>
-    </div>
+    </section>
 
-    <!-- תצוגת הציון הסופי -->
-    <div id="result-container" style="display:none;">
+    <!-- תצוגת התוצאה -->
+    <section id="result-container" style="display:none;">
         <h2>תוצאות השאלון</h2>
         <p id="score-text"></p>
         <button id="restart-btn">התחל מחדש</button>
-    </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
