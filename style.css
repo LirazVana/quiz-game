@@ -1,111 +1,74 @@
 body {
     font-family: Arial, sans-serif;
-    direction: rtl;
-    background: #f0f0f5;
-    padding: 20px;
     text-align: center;
+    direction: rtl;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
 }
 
-#main-menu {
-    margin-bottom: 20px;
-}
-
-#main-menu button {
+#main-menu button,
+#next-btn,
+#restart-btn {
+    margin: 10px;
     padding: 10px 20px;
-    margin: 0 8px;
     font-size: 18px;
+    cursor: pointer;
+    background-color: #2196F3;
+    color: white;
     border: none;
     border-radius: 8px;
-    background-color: #007acc;
-    color: white;
-    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-#main-menu button:hover {
-    background-color: #005f99;
-}
-
-#quiz-container, #result-container {
-    background: white;
-    border-radius: 12px;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 30px 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+#main-menu button:hover,
+#next-btn:hover,
+#restart-btn:hover {
+    background-color: #1976D2;
 }
 
 #question-text {
-    font-size: 22px;
+    font-size: 24px;
     margin-bottom: 20px;
-    min-height: 60px;
+}
+
+#answers-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .answer-btn {
-    display: block;
-    background-color: #e0e0e0;
-    border: none;
-    border-radius: 10px;
-    padding: 12px;
-    margin: 10px auto;
-    width: 80%;
-    max-width: 400px;
+    padding: 10px 20px;
     font-size: 18px;
+    width: 200px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
+    background-color: #fff;
 }
 
 .answer-btn:hover {
-    background-color: #c6defd;
+    background-color: #f0f0f0;
 }
 
-.answer-btn.correct {
+.correct {
     background-color: #4CAF50 !important;
     color: white;
 }
 
-.answer-btn.incorrect {
+.incorrect {
     background-color: #f44336 !important;
     color: white;
 }
 
 #feedback {
     font-size: 20px;
-    margin-top: 15px;
-    height: 30px;
-    font-weight: bold;
+    margin: 15px 0;
 }
 
-#next-btn, #restart-btn {
-    margin-top: 20px;
-    padding: 12px 24px;
-    font-size: 20px;
-    border: none;
-    border-radius: 10px;
-    background-color: #007acc;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#next-btn:hover, #restart-btn:hover {
-    background-color: #005f99;
-}
-
-/* אינדיקטור התקדמות */
-#progress-bar {
-    width: 80%;
-    max-width: 600px;
-    height: 20px;
-    background-color: #ddd;
-    border-radius: 10px;
-    margin: 0 auto 25px auto;
-    overflow: hidden;
-}
-
-#progress-fill {
-    height: 100%;
-    background-color: #007acc;
-    width: 0%;
-    transition: width 0.4s ease;
+#result-container {
+    margin-top: 30px;
 }
