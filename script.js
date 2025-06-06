@@ -21,7 +21,46 @@ const questions = [
     answers: ["6", "8", "10", "4"],
     correctIndex: 1,
   },
-  // הוסיפי כאן עוד שאלות לפי הצורך
+  {
+    question: "מהו כוכב הלכת הקרוב ביותר לשמש?",
+    answers: ["נוגה", "מאדים", "מרקורי", "כדור הארץ"],
+    correctIndex: 2,
+  },
+  {
+    question: "באיזו מדינה נמצא מגדל אייפל?",
+    answers: ["איטליה", "צרפת", "אנגליה", "ספרד"],
+    correctIndex: 1,
+  },
+  {
+    question: "כמה ימים יש בשבוע?",
+    answers: ["5", "6", "7", "8"],
+    correctIndex: 2,
+  },
+  {
+    question: "מהי שפת התכנות הפופולרית ל־web?",
+    answers: ["C++", "Python", "JavaScript", "Java"],
+    correctIndex: 2,
+  },
+  {
+    question: "באיזו יבשת נמצא מדבר סהרה?",
+    answers: ["אסיה", "אפריקה", "אמריקה", "אוסטרליה"],
+    correctIndex: 1,
+  },
+  {
+    question: "מהי עיר הבירה של ישראל?",
+    answers: ["תל אביב", "ירושלים", "חיפה", "באר שבע"],
+    correctIndex: 1,
+  },
+  {
+    question: "מי המציא את הנורה החשמלית?",
+    answers: ["אלברט איינשטיין", "תומאס אדיסון", "אלכסנדר גרהם בל", "ניקולה טסלה"],
+    correctIndex: 1,
+  },
+  {
+    question: "כמה צבעים יש בקשת?",
+    answers: ["5", "6", "7", "8"],
+    correctIndex: 2,
+  }
 ];
 
 let currentQuestionIndex = 0;
@@ -37,46 +76,51 @@ btnQuiz.addEventListener("click", () => {
 });
 
 function showQuestion() {
-  clearState();
+  nextBtn.style.display = "none";
+  feedback.textContent = "";
+  answersContainer.innerHTML = "";
 
-  const q = questions[currentQuestionIndex];
-  questionText.textContent = q.question;
+  const currentQuestion = questions[currentQuestionIndex];
+  questionText.textContent = currentQuestion.question;
 
-  q.answers.forEach((answer, index) => {
+  currentQuestion.answers.forEach((answer, index) => {
     const btn = document.createElement("button");
     btn.textContent = answer;
+    btn.dir = "rtl";
     btn.addEventListener("click", () => selectAnswer(index));
     answersContainer.appendChild(btn);
   });
 }
 
-function clearState() {
-  feedback.textContent = "";
-  nextBtn.style.display = "none";
-  answersContainer.innerHTML = "";
-}
-
 function selectAnswer(selectedIndex) {
-  const q = questions[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex];
   const buttons = answersContainer.querySelectorAll("button");
 
   buttons.forEach((btn, idx) => {
     btn.disabled = true;
-    if (idx === q.correctIndex) {
+    if (idx === currentQuestion.correctIndex) {
       btn.classList.add("correct");
-    } else if (idx === selectedIndex) {
+    }
+    if (idx === selectedIndex && idx !== currentQuestion.correctIndex) {
       btn.classList.add("incorrect");
     }
   });
 
-  if (selectedIndex === q.correctIndex) {
-    feedback.textContent = "תשובה נכונה! 👏";
+  if (selectedIndex === currentQuestion.correctIndex) {
     score++;
+    feedback.textContent = "תשובה נכונה! כל הכבוד 🎉";
+    feedback.style.color = "#28a745";
   } else {
-    feedback.textContent = `תשובה שגויה. התשובה הנכונה היא: ${q.answers[q.correctIndex]}`;
+    feedback.textContent = "תשובה לא נכונה. נסה שוב בשאלה הבאה.";
+    feedback.style.color = "#dc3545";
   }
 
-  nextBtn.style.display = "inline-block";
+  if (currentQuestionIndex < questions.length - 1) {
+    nextBtn.style.display = "block";
+  } else {
+    nextBtn.textContent = "סיים שאלון";
+    nextBtn.style.display = "block";
+  }
 }
 
 nextBtn.addEventListener("click", () => {
@@ -91,10 +135,11 @@ nextBtn.addEventListener("click", () => {
 function showResult() {
   quizContainer.style.display = "none";
   resultContainer.style.display = "block";
-  scoreText.textContent = `קיבלת ${score * 10} מתוך ${questions.length * 10} נקודות`;
+  scoreText.textContent = `קיבלת ${score} מתוך ${questions.length} שאלות נכונות.`;
 }
 
 restartBtn.addEventListener("click", () => {
-  resultContainer.style.display = "none";
   mainMenu.style.display = "flex";
+  quizContainer.style.display = "none";
+  resultContainer.style.display = "none";
 });
