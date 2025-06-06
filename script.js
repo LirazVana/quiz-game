@@ -1,4 +1,5 @@
-// שאלות השאלון
+// --- מערך שאלות ---
+// כל שאלה עם טקסט, מערך תשובות, ואינדקס של התשובה הנכונה
 const questions = [
     {
         question: "מהי בירת ישראל?",
@@ -66,70 +67,77 @@ const feedback = document.getElementById("feedback");
 const nextBtn = document.getElementById("next-btn");
 const restartBtn = document.getElementById("restart-btn");
 
+// מאזין לכפתור "שאלון"
 document.getElementById("btn-quiz").addEventListener("click", () => {
     mainMenu.style.display = "none";
     resultContainer.style.display = "none";
     quizContainer.style.display = "block";
     currentQuestionIndex = 0;
     score = 0;
-    showQuestion();
     feedback.textContent = "";
     nextBtn.style.display = "none";
+    showQuestion();
 });
 
+// הצגת שאלה עם התשובות שלה
 function showQuestion() {
-    const currentQuestion = questions[currentQuestionIndex];
-    questionText.textContent = currentQuestion.question;
+    const currentQ = questions[currentQuestionIndex];
+    questionText.textContent = currentQ.question;
     answersContainer.innerHTML = "";
+    feedback.textContent = "";
 
-    currentQuestion.answers.forEach((answer, index) => {
+    currentQ.answers.forEach((answer, idx) => {
         const btn = document.createElement("button");
-        btn.classList.add("answer-btn");
         btn.textContent = answer;
-        btn.addEventListener("click", () => selectAnswer(index));
+        btn.classList.add("answer-btn");
+        btn.disabled = false;
+        btn.addEventListener("click", () => handleAnswer(idx));
         answersContainer.appendChild(btn);
     });
 }
 
-function selectAnswer(selectedIndex) {
-    const currentQuestion = questions[currentQuestionIndex];
+// טיפול בבחירת תשובה
+function handleAnswer(selectedIndex) {
+    const currentQ = questions[currentQuestionIndex];
     const buttons = answersContainer.querySelectorAll("button");
 
-    // מנטרל את כל הכפתורים כדי למנוע לחיצות נוספות
+    // מנטרל את כל הכפתורים אחרי בחירה
     buttons.forEach(btn => btn.disabled = true);
 
-    if (selectedIndex === currentQuestion.correct) {
+    if (selectedIndex === currentQ.correct) {
         buttons[selectedIndex].classList.add("correct");
-        feedback.textContent = "תשובה נכונה";
+        feedback.textContent = "תשובה נכונה!";
         score += 10;
     } else {
         buttons[selectedIndex].classList.add("wrong");
-        buttons[currentQuestion.correct].classList.add("correct");
-        feedback.textContent = "תשובה לא נכונה";
+        buttons[currentQ.correct].classList.add("correct");
+        feedback.textContent = "תשובה לא נכונה.";
     }
 
     nextBtn.style.display = "inline-block";
 }
 
+// כפתור "שאלה הבאה"
 nextBtn.addEventListener("click", () => {
     currentQuestionIndex++;
-    feedback.textContent = "";
-    nextBtn.style.display = "none";
-
     if (currentQuestionIndex < questions.length) {
         showQuestion();
+        nextBtn.style.display = "none";
+        feedback.textContent = "";
     } else {
         showResult();
     }
 });
 
-restartBtn.addEventListener("click", () => {
-    resultContainer.style.display = "none";
-    mainMenu.style.display = "block";
-});
-
+// הצגת התוצאה הסופית
 function showResult() {
     quizContainer.style.display = "none";
     resultContainer.style.display = "block";
     scoreText.textContent = `הציון שלך הוא: ${score} מתוך 100 נקודות`;
 }
+
+// התחלת שאלון מחדש
+restartBtn.addEventListener("click", () => {
+    resultContainer.style.display = "none";
+    mainMenu.style.display = "block";
+});
