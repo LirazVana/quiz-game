@@ -141,4 +141,13 @@ function showQuestion() {
 
 function showResult() {
     quizContainer.style.display = "none";
-   
+    resultContainer.style.display = "block";
+
+    const maxScore = questions.length * 10;
+    scoreText.textContent = `קיבלת ${score} מתוך ${maxScore} נקודות.`;
+}
+
+function updateProgressBar() {
+    const progressPercent = ((currentQuestionIndex) / questions.length) * 100;
+    progressFill.style.width = progressPercent + "%";
+}
