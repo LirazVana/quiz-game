@@ -1,15 +1,14 @@
-/* כללי */
 body {
   font-family: Arial, sans-serif;
-  direction: rtl;
-  text-align: right;
   background-color: #f0f0f0;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  direction: rtl;
+  text-align: right;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 }
 
 /* תפריט ראשי */
@@ -45,6 +44,7 @@ body {
   border-radius: 10px;
   box-sizing: border-box;
   text-align: right;
+  direction: rtl;
 }
 
 /* טקסט השאלה */
@@ -76,7 +76,6 @@ body {
   unicode-bidi: embed;
 }
 
-/* כפתור תשובה נכונה */
 #answers-container button.correct {
   background-color: #d4edda;
   border-color: #28a745;
@@ -84,7 +83,6 @@ body {
   cursor: default;
 }
 
-/* כפתור תשובה שגויה */
 #answers-container button.incorrect {
   background-color: #f8d7da;
   border-color: #dc3545;
@@ -131,7 +129,7 @@ body {
   unicode-bidi: embed;
 }
 
-/* התאמות לנייד וטאבלט */
+/* התאמות למובייל וטאבלט */
 @media (max-width: 600px) {
   #quiz-container, #result-container {
     padding: 20px 15px;
@@ -152,5 +150,15 @@ body {
   #answers-container button {
     font-size: 1.1rem;
     padding: 14px 20px;
+  }
+
+  /* למרכז את הפידבק והכפתור בנייד */
+  #feedback {
+    text-align: center;
+  }
+
+  #next-btn {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
