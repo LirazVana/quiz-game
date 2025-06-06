@@ -1,39 +1,43 @@
+#answers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* כפתורי תשובות */
 .answer-button {
-  display: inline-block;
-  margin: 12px 10px;
-  padding: 15px 30px;
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
   border: none;
-  border-radius: 30px;
-  background: linear-gradient(to right, #ffffff, #f0f0f0);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  color: #333;
+  border-radius: 12px;
+  background: #e3f2fd; /* כחול בהיר ונעים */
+  color: #0d47a1; /* כחול כהה לקריאות */
   transition: all 0.3s ease;
-  min-width: 200px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .answer-button:hover {
-  background: linear-gradient(to right, #e6f0ff, #dceaff);
-  transform: scale(1.03);
+  background: #bbdefb;
 }
 
+/* תשובה נכונה */
 .answer-button.correct {
-  background: linear-gradient(to right, #d4edda, #c8e6c9);
-  color: #2e7d32;
-  border: 2px solid #2e7d32;
+  background: #c8e6c9;
+  color: #1b5e20;
+  border: 2px solid #1b5e20;
 }
 
+/* תשובה לא נכונה */
 .answer-button.incorrect {
-  background: linear-gradient(to right, #f8d7da, #ffcdd2);
-  color: #c62828;
-  border: 2px solid #c62828;
+  background: #ffcdd2;
+  color: #b71c1c;
+  border: 2px solid #b71c1c;
 }
-
-#answers-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
+ה
