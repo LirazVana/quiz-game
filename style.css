@@ -1,226 +1,156 @@
-/* סגנון כללי */
+/* כללי */
 body {
-  font-family: "Arial", sans-serif;
-  background: #f9fafb;
-  color: #222;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  text-align: right;
+  background-color: #f0f0f0;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  direction: rtl; /* עברית מימין לשמאל */
-  text-align: center;
 }
 
 /* תפריט ראשי */
 #main-menu {
-  width: 100%;
-  max-width: 480px;
-  padding: 15px 10px;
   display: flex;
-  justify-content: space-around;
-  background-color: #ffffff;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
 }
 
 #main-menu button {
-  background-color: #2196f3;
-  border: none;
-  border-radius: 8px;
-  color: white;
+  padding: 10px 20px;
   font-size: 16px;
-  padding: 12px 20px;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
   transition: background-color 0.3s ease;
-  min-width: 80px;
 }
 
 #main-menu button:hover {
-  background-color: #1976d2;
+  background-color: #0056b3;
 }
 
 /* קונטיינר השאלון */
-#quiz-container {
+#quiz-container, #result-container {
+  max-width: 600px;
   width: 90%;
-  max-width: 480px;
-  background: white;
-  margin-top: 30px;
-  padding: 25px 20px 35px 20px;
-  border-radius: 15px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+  background-color: white;
+  padding: 25px 30px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
   box-sizing: border-box;
+  text-align: right;
 }
 
-/* טקסט שאלה */
+/* טקסט השאלה */
 #question-text {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 25px;
-  min-height: 70px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  direction: rtl;
+  unicode-bidi: embed;
 }
 
-/* תיבת תשובות אנכית ומרכזית */
+/* תשובות */
 #answers-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 15px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-/* כפתורי תשובות */
-.answer-button {
-  width: 100%;
-  max-width: 420px;
-  padding: 16px 18px;
-  font-size: 18px;
-  font-weight: 600;
+#answers-container button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  text-align: right;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  background-color: #f9f9f9;
   cursor: pointer;
-  border: none;
-  border-radius: 12px;
-  background: #e3f2fd; /* כחול בהיר ונעים */
-  color: #0d47a1; /* כחול כהה לקריאות */
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-  text-align: center;
-  user-select: none;
+  transition: background-color 0.3s, border-color 0.3s;
+  direction: rtl;
+  unicode-bidi: embed;
 }
 
-.answer-button:hover:not(.correct):not(.incorrect) {
-  background-color: #bbdefb;
-  transform: scale(1.03);
-}
-
-/* תשובה נכונה */
-.answer-button.correct {
-  background: #c8e6c9;
-  color: #1b5e20;
-  border: 2px solid #1b5e20;
-  box-shadow: 0 0 8px #4caf50;
+/* כפתור תשובה נכונה */
+#answers-container button.correct {
+  background-color: #d4edda;
+  border-color: #28a745;
+  color: #155724;
   cursor: default;
 }
 
-/* תשובה לא נכונה */
-.answer-button.incorrect {
-  background: #ffcdd2;
-  color: #b71c1c;
-  border: 2px solid #b71c1c;
-  box-shadow: 0 0 8px #f44336;
+/* כפתור תשובה שגויה */
+#answers-container button.incorrect {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
   cursor: default;
 }
 
 /* פידבק */
 #feedback {
-  margin-top: 25px;
-  font-size: 20px;
-  font-weight: 700;
-  min-height: 30px;
-  color: #2e7d32; /* ירוק */
-}
-
-/* כפתור שאלה הבאה */
-#next-btn {
-  margin-top: 30px;
-  padding: 14px 32px;
-  font-size: 18px;
-  font-weight: 600;
-  background-color: #2196f3;
-  border: none;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#next-btn:hover {
-  background-color: #1976d2;
-}
-
-/* קונטיינר תוצאות */
-#result-container {
-  width: 90%;
-  max-width: 480px;
-  background: white;
-  margin-top: 40px;
-  padding: 25px 20px 35px 20px;
-  border-radius: 15px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-  box-sizing: border-box;
-}
-
-#result-container h2 {
-  font-size: 26px;
+  font-size: 1.1rem;
+  font-weight: bold;
   margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+  direction: rtl;
+  unicode-bidi: embed;
 }
 
-#score-text {
-  font-size: 22px;
-  font-weight: 700;
-  color: #1565c0;
-  margin-bottom: 30px;
-}
-
-#restart-btn {
-  background-color: #4caf50;
-  border: none;
-  border-radius: 12px;
+/* כפתור שאלה הבאה וכפתור התחל מחדש */
+#next-btn, #restart-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  background-color: #007bff;
   color: white;
-  padding: 14px 36px;
-  font-size: 18px;
-  font-weight: 600;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-#restart-btn:hover {
-  background-color: #388e3c;
+#next-btn:hover, #restart-btn:hover {
+  background-color: #0056b3;
 }
 
-/* רספונסיביות */
+/* תצוגת ציון */
+#score-text {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 25px;
+  direction: rtl;
+  unicode-bidi: embed;
+}
 
+/* התאמות לנייד וטאבלט */
 @media (max-width: 600px) {
+  #quiz-container, #result-container {
+    padding: 20px 15px;
+    width: 95%;
+  }
+
   #main-menu {
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
   }
 
   #main-menu button {
-    flex: 1 1 40%;
-    min-width: unset;
-    padding: 12px 0;
-    font-size: 14px;
-  }
-
-  #question-text {
-    font-size: 20px;
-  }
-
-  .answer-button {
-    max-width: 100%;
-    font-size: 16px;
-    padding: 14px 16px;
-  }
-
-  #next-btn, #restart-btn {
     width: 100%;
-    font-size: 16px;
-    padding: 14px 0;
+    font-size: 1.2rem;
+    padding: 14px;
   }
 
-  #result-container h2 {
-    font-size: 22px;
-  }
-
-  #score-text {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 900px) {
-  body {
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  #answers-container button {
+    font-size: 1.1rem;
+    padding: 14px 20px;
   }
 }
