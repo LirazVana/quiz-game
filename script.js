@@ -63,13 +63,13 @@ function startQuiz() {
 function showQuestion() {
   const q = questions[currentQuestion];
   const main = document.getElementById("main-content");
-  main.innerHTML = \`
-    <h2>שאלה \${currentQuestion + 1} מתוך \${questions.length}</h2>
-    <p>\${q.question}</p>
+  main.innerHTML = `
+    <h2>שאלה ${currentQuestion + 1} מתוך ${questions.length}</h2>
+    <p>${q.question}</p>
     <div id="answers"></div>
     <p id="feedback"></p>
     <button id="next" onclick="nextQuestion()" disabled>לשאלה הבאה</button>
-  \`;
+  `;
 
   const answersDiv = document.getElementById("answers");
   q.answers.forEach((answer, index) => {
@@ -111,9 +111,9 @@ function nextQuestion() {
 
 function showResult() {
   const main = document.getElementById("main-content");
-  main.innerHTML = \`
+  main.innerHTML = `
     <h2>סיימת את השאלון!</h2>
-    <p>הציון שלך: \${score} מתוך 100</p>
+    <p>הציון שלך: ${score} מתוך 100</p>
     <button onclick="startQuiz()">נסה שוב</button>
-  \`;
+  `;
 }
