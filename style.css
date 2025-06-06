@@ -1,89 +1,39 @@
-body {
-  font-family: Arial, sans-serif;
-  direction: rtl;
-  background-color: #f0f4f8;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-
-#main-menu {
-  background-color: #4a90e2;
-  padding: 20px;
-}
-
-#main-menu button {
-  background-color: #ffffff;
-  border: none;
-  margin: 10px;
-  padding: 15px 25px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s;
-}
-
-#main-menu button:hover {
-  background-color: #d0e6ff;
-}
-
-#quiz-container,
-#result-container {
-  margin-top: 40px;
-}
-
-#question-text {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
 .answer-button {
-  display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
+  display: inline-block;
+  margin: 12px 10px;
+  padding: 15px 30px;
   font-size: 18px;
+  font-weight: 500;
   cursor: pointer;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  background-color: #ffffff;
-  width: 60%;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(to right, #ffffff, #f0f0f0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #333;
   transition: all 0.3s ease;
+  min-width: 200px;
 }
 
 .answer-button:hover {
-  background-color: #eef3ff;
+  background: linear-gradient(to right, #e6f0ff, #dceaff);
+  transform: scale(1.03);
 }
 
 .answer-button.correct {
-  background-color: #c8e6c9;
-  border-color: #2e7d32;
+  background: linear-gradient(to right, #d4edda, #c8e6c9);
   color: #2e7d32;
+  border: 2px solid #2e7d32;
 }
 
 .answer-button.incorrect {
-  background-color: #ffcdd2;
-  border-color: #c62828;
+  background: linear-gradient(to right, #f8d7da, #ffcdd2);
   color: #c62828;
+  border: 2px solid #c62828;
 }
 
-#feedback {
-  margin-top: 20px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-#next-btn, #restart-btn {
-  margin-top: 30px;
-  padding: 10px 20px;
-  font-size: 18px;
-  border: none;
-  border-radius: 8px;
-  background-color: #4a90e2;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-#next-btn:hover, #restart-btn:hover {
-  background-color: #357ab8;
+#answers-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
