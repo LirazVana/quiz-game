@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html lang="he">
 <head>
-  <meta charset="UTF-8" />
-  <title>משחק שאלון</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <title>אתר שאלון אינטראקטיבי</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <nav>
-    <button onclick="startQuiz()">שאלון</button>
-  </nav>
 
-  <main id="main-content">
-    <h1>ברוכים הבאים למשחק השאלון!</h1>
-    <p>לחצו על כפתור "שאלון" כדי להתחיל</p>
-  </main>
+    <!-- תפריט ראשי -->
+    <div id="main-menu">
+        <button id="btn-home">בית</button>
+        <button id="btn-quiz">שאלון</button>
+        <button id="btn-about">אודות</button>
+        <button id="btn-contact">צור קשר</button>
+    </div>
 
-  <script src="script.js"></script>
+    <!-- ממשק השאלון - בהתחלה מוסתר -->
+    <div id="quiz-container" style="display:none;">
+        <div id="question-text"></div>
+        <div id="answers-container"></div>
+        <div id="feedback"></div>
+        <button id="next-btn" style="display:none;">שאלה הבאה</button>
+    </div>
+
+    <!-- תצוגת הציון הסופי -->
+    <div id="result-container" style="display:none;">
+        <h2>תוצאות השאלון</h2>
+        <p id="score-text"></p>
+        <button id="restart-btn">התחל מחדש</button>
+    </div>
+
+    <script src="quiz.js"></script>
 </body>
 </html>
